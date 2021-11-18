@@ -5,6 +5,7 @@ import { FlatList, Text, View } from 'react-native';
 import { styles } from './styles';
 import { Song } from '../../components/song';
 import { musicList } from '../../content/content';
+import { MiniPlayer } from '../../components/miniPlayer';
 
 export const Home = () => {
     return (
@@ -18,6 +19,7 @@ export const Home = () => {
                         <Song data={item} />
                     );
                 }} />
+                <MiniPlayer data={musicList}/>
             </View>
         </View>
     );
