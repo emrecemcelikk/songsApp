@@ -1,11 +1,24 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
-import { Text, View } from 'react-native';
+import { FlatList, Text, View } from 'react-native';
+
+import { styles } from './styles';
+import { Song } from '../../components/song';
+import { musicList } from '../../content/content';
 
 export const Home = () => {
     return (
-        <View>
-            <Text>Home</Text>
+        <View style={styles.container}>
+            <View style={styles.headerContainer}>
+                <Text style={styles.headerText}>Songs</Text>
+            </View>
+            <View style={styles.main}>
+                <FlatList data={musicList} renderItem={({item})=>{
+                    return (
+                        <Song data={item} />
+                    );
+                }} />
+            </View>
         </View>
     );
 };
