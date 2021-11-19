@@ -1,31 +1,65 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
 import { Text, TouchableOpacity, View, Image, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/core';
 import { Icon } from 'react-native-elements';
+import { observer } from 'mobx-react';
+import MainStore from '../Store/MainStore';
 
-export const MiniPlayer = ({data}) => {
+export const MiniPlayer = observer(() => {
+    const navigation = useNavigation();
+    const playSong = () => {
+        MainStore.song.play();
+        MainStore.chanceIsPlaying();
+        console.log(MainStore.song);
+    };
+    const pauseSong = () => {
+        MainStore.song.pause();
+        MainStore.chanceIsPlaying();
+        console.log(MainStore.song);
+    };
+    const nextSong = () => {
+        MainStore.song.pause();
+        MainStore.nextSong();
+    };
+    const prevSong = () => {
+        MainStore.song.pause();
+        MainStore.prevSong();
+    };
     return (
-        <TouchableOpacity style={styles.card}>
+        <TouchableOpacity style={styles.card} onPress={()=> navigation.navigate('Player')}>
             <View>
-                <Image style={styles.img} source={data[0].image} />
+                <Image style={styles.img} source={MainStore.activeSong.image} />
             </View>
             <View style={styles.text}>
-                <Text style={styles.title}>{data[0].title}</Text>
-                <Text style={styles.artist}>{data[0].artist}</Text>
+                <Text style={styles.title}>{MainStore.activeSong.title}</Text>
+                <Text style={styles.artist}>{MainStore.activeSong.artist}</Text>
             </View>
             <View style={styles.icon}>
-                <Icon size={42} name="play" type="ionicon" color="#FFF" />
+                <TouchableOpacity onPress={()=> prevSong()}>
+                    <Icon size={42} name="play-skip-back" type="ionicon" color="#FFF" />
+                </TouchableOpacity>
+                {MainStore.isPlaying ?
+                <TouchableOpacity onPress={()=>pauseSong()}>
+                    <Icon size={42} name="pause" type="ionicon" color="#FFF" />
+                </TouchableOpacity> :
+                <TouchableOpacity onPress={()=>playSong()}>
+                    <Icon size={42} name="play" type="ionicon" color="#FFF" />
+                </TouchableOpacity>}
+                <TouchableOpacity onPress={()=> nextSong()}>
+                    <Icon size={42} name="play-skip-forward" type="ionicon" color="#FFF" />
+                </TouchableOpacity>
             </View>
         </TouchableOpacity>
     );
-};
+});
 
 const styles = StyleSheet.create({
     card: {
         backgroundColor:'#206A5D',
         flexDirection:'row',
         padding:10,
-        justifyContent:'space-between',
+        justifyContent:'space-evenly',
         marginBottom:12,
         width:'100%',
         position:'absolute',
@@ -38,7 +72,7 @@ const styles = StyleSheet.create({
     },
     text: {
         justifyContent:'center',
-        width:'60%',
+        width:'40%',
     },
     title: {
         fontFamily:'Montserrat-Bold',
@@ -51,6 +85,7 @@ const styles = StyleSheet.create({
         color:'#E9E9E9',
     },
     icon: {
-        justifyContent:'center',
+        alignItems:'center',
+        flexDirection:'row',
     },
 });

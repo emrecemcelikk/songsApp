@@ -8,15 +8,16 @@ import { musicList } from '../../content/content';
 import { MiniPlayer } from '../../components/miniPlayer';
 
 export const Home = () => {
+
     return (
         <View style={styles.container}>
             <View style={styles.headerContainer}>
                 <Text style={styles.headerText}>Songs</Text>
             </View>
             <View style={styles.main}>
-                <FlatList data={musicList} renderItem={({item})=>{
+                <FlatList data={musicList} renderItem={({item,index})=>{
                     return (
-                        <Song data={item} />
+                            <Song data={item} index={index} />
                     );
                 }} />
                 <MiniPlayer data={musicList}/>
