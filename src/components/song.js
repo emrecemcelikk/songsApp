@@ -1,22 +1,26 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
 import { Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native';
+// import icon
 import { Icon } from 'react-native-elements';
-import MainStore from '../Store/MainStore';
+//import nav components
 import { useNavigation } from '@react-navigation/core';
+//import data content
 import { musicList } from '../content/content';
+//import mobx components
+import MainStore from '../Store/MainStore';
 import { observer } from 'mobx-react';
 
 
-export const Song = observer(({data,index}) => {
+export const Song = observer(({ data, index }) => {
     const navigation = useNavigation();
-
-    const play  = async (i) =>{
-        await MainStore.setActiveSong(musicList[i],i);
+    //start song and go to player
+    const play = async (i) => {
+        await MainStore.setActiveSong(musicList[i], i);
         navigation.navigate('Player');
     };
     return (
-        <TouchableOpacity style={styles.card} onPress={()=>play(index)}>
+        <TouchableOpacity style={styles.card} onPress={() => play(index)}>
             <View>
                 <Image style={styles.img} source={data.image} />
             </View>
@@ -35,33 +39,33 @@ export const Song = observer(({data,index}) => {
 
 const styles = StyleSheet.create({
     card: {
-        backgroundColor:'#BFDCAE',
-        flexDirection:'row',
-        padding:10,
-        justifyContent:'space-between',
-        borderRadius:10,
-        marginBottom:12,
+        backgroundColor: '#BFDCAE',
+        flexDirection: 'row',
+        padding: 10,
+        justifyContent: 'space-between',
+        borderRadius: 10,
+        marginBottom: 12,
     },
     img: {
-        width:70,
-        height:70,
-        borderRadius:50,
+        width: 70,
+        height: 70,
+        borderRadius: 50,
     },
     text: {
-        justifyContent:'center',
-        width:'60%',
+        justifyContent: 'center',
+        width: '60%',
     },
     title: {
-        fontFamily:'Montserrat-Bold',
-        fontSize:18,
-        color:'#000000',
+        fontFamily: 'Montserrat-Bold',
+        fontSize: 18,
+        color: '#000000',
     },
     artist: {
-        fontFamily:'Montserrat-Medium',
-        fontSize:14,
-        color:'#5E5E5E',
+        fontFamily: 'Montserrat-Medium',
+        fontSize: 14,
+        color: '#5E5E5E',
     },
     icon: {
-        justifyContent:'center',
+        justifyContent: 'center',
     },
 });

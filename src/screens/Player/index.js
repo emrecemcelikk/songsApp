@@ -12,13 +12,13 @@ import { observer } from 'mobx-react-lite';
 
 const { width } = Dimensions.get('window');
 
-export const Player = observer(({navigation})=> {
-    const [time,setTime] = useState();
-    const getTime = ()=>{
-        MainStore.song.getCurrentTime((seconds)=> setTime(seconds));
+export const Player = observer(({ navigation }) => {
+    const [time, setTime] = useState();
+    const getTime = () => {
+        MainStore.song.getCurrentTime((seconds) => setTime(seconds));
         return time;
     };
-    const setSliderTime = (value)=>{
+    const setSliderTime = (value) => {
         MainStore.song.setCurrentTime(value);
         return time;
     };
@@ -60,7 +60,7 @@ export const Player = observer(({navigation})=> {
                         minimumTrackTintColor="#206A5D"
                         maximumTrackTintColor="#000000"
                         thumbTintColor="#206A5D"
-                        onSlidingComplete={async(value)=>{
+                        onSlidingComplete={async (value) => {
                             setSliderTime(value);
                         }
 
@@ -68,22 +68,22 @@ export const Player = observer(({navigation})=> {
                     />
                 </View>
                 <View style={styles.iconWrapper}>
-                    <TouchableOpacity onPress={()=>prevSong()}>
+                    <TouchableOpacity onPress={() => prevSong()}>
                         <Icon size={50} style={styles.icon} name="play-skip-back" type="ionicon" color="#000" />
                     </TouchableOpacity>
                     {MainStore.isPlaying ?
-                    <TouchableOpacity onPress={() =>pauseSong()}>
-                        <Icon size={50} style={styles.icon} name="pause" type="ionicon" color="#000" />
-                    </TouchableOpacity> :
-                    <TouchableOpacity onPress={() =>playSong()}>
-                        <Icon size={50} style={styles.icon} name="play" type="ionicon" color="#000" />
-                    </TouchableOpacity>}
-                    <TouchableOpacity onPress={() =>nextSong()}>
+                        <TouchableOpacity onPress={() => pauseSong()}>
+                            <Icon size={50} style={styles.icon} name="pause" type="ionicon" color="#000" />
+                        </TouchableOpacity> :
+                        <TouchableOpacity onPress={() => playSong()}>
+                            <Icon size={50} style={styles.icon} name="play" type="ionicon" color="#000" />
+                        </TouchableOpacity>}
+                    <TouchableOpacity onPress={() => nextSong()}>
                         <Icon size={50} style={styles.icon} name="play-skip-forward" type="ionicon" color="#000" />
                     </TouchableOpacity>
                 </View>
-                <TouchableOpacity style={styles.back} onPress={()=>navigation.navigate('Home')}>
-                    <Icon name="chevron-down" type="ionicon" color="#2C3D4F" size={80}/>
+                <TouchableOpacity style={styles.back} onPress={() => navigation.navigate('Home')}>
+                    <Icon name="chevron-down" type="ionicon" color="#2C3D4F" size={80} />
                 </TouchableOpacity>
             </View>
         </View>
