@@ -26,7 +26,7 @@ class MainStore {
                 console.log('duration in seconds: ' + this.song.getDuration());
                 this.song.play();
                 this.isPlaying = true;
-            }); //
+            }); //this state start music for the first time
         } else if (this.isPlaying && this.activeSong.id - 1 !== i) {
             this.activeSong = data;
             this.song.pause();
